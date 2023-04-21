@@ -27,6 +27,7 @@ createApp(
             outcome_empty:      1,
             outcome_short:      2,
             outcome_blanks:     3,
+            outcome_exists:     4,
 
             input_outcome:      null,
 
@@ -34,7 +35,8 @@ createApp(
                                 [   "L'ultimo dato digitato non può essere inserito poichè ",
                                     "inesistente (stringa vuota)!",
                                     "troppo corto!",
-                                    "composto da soli spazi!"
+                                    "composto da soli spazi!",
+                                    "già presente!"
                                 ],
 
             new_item:           {
@@ -86,6 +88,12 @@ createApp(
             return (counter == str_value.length);
         },
 
+        exists(str_value)
+        {
+            let check = this.todos.filter((element) => (element.text.toUpperCase() == str_value.toUpperCase()));
+            return (check.length != 0);
+        },
+
         add_item()
         {
             let {text, notable, done} = this.new_item;
@@ -102,6 +110,11 @@ createApp(
             {
                 this.input_outcome = this.outcome_blanks;
                 text = "";
+            }
+            else if (this.exists(text))
+            {
+                this.input_outcome = this.outcome_exists;
+                text = "";                
             }
             else
             {
