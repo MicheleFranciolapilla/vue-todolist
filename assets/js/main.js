@@ -26,13 +26,15 @@ createApp(
             outcome_ok:         0,
             outcome_empty:      1,
             outcome_short:      2,
+            outcome_blanks:     3,
 
             input_outcome:      null,
 
             errors:
-                                [   "L'ultimo dato digitato non può essere inserito, poichè ",
+                                [   "L'ultimo dato digitato non può essere inserito poichè ",
                                     "inesistente (stringa vuota)!",
-                                    "troppo corto!"
+                                    "troppo corto!",
+                                    "composto da soli spazi!"
                                 ],
 
             new_item:           {
@@ -76,6 +78,14 @@ createApp(
             this.todos.splice(index,1);
         },
 
+        just_blank_check(str_value)
+        {
+            let counter = 0;
+            for (let i = 0; i < str_value.length; i++)
+                if (str_value[i] === " ") counter++;
+            return (counter == str_value.length);
+        },
+
         add_item()
         {
             let {text, notable, done} = this.new_item;
@@ -86,6 +96,11 @@ createApp(
             else if (text.length < this.min_item_length)
             {
                 this.input_outcome = this.outcome_short;
+                text = "";
+            }
+            else if (this.just_blank_check(text))
+            {
+                this.input_outcome = this.outcome_blanks;
                 text = "";
             }
             else
