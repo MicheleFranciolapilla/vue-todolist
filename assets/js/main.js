@@ -91,6 +91,14 @@ createApp(
                 text = "";
             }
             this.new_item = {text, done};
+        },
+
+        check_keypressed(event) 
+        {
+            if (event.key === "Enter")
+            {
+                this.add_item();
+            }
         }
     }
 }).mount('#vue_app')

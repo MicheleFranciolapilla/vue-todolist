@@ -28,7 +28,7 @@
 
                 <section class="row p-0 m-0 my-3">
                     <div class="col-3 offset-2">
-                        <input type="text" class="form-control" v-model = "new_item.text" placeholder="Aggiungi un nuovo 'to do'" aria-label="new_to_do">
+                        <input v-on:keyup="check_keypressed" type="text" class="form-control" v-model = "new_item.text" placeholder="Aggiungi un nuovo 'to do'" aria-label="new_to_do">
                     </div>
                     <div class="col-1">
                         <button v-on:click="add_item()" class="btn btn-primary btn-outline-light">Aggiungi</button>
