@@ -42,5 +42,10 @@ createApp(
     created()
     {},
     methods: 
-    {}
+    {
+        remove_item(index)
+        {
+            this.todos.splice(index,1);
+        }
+    }
 }).mount('#vue_app')

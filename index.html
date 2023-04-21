@@ -42,7 +42,7 @@
                                 <td>
                                     <input class="form-check-input" type="checkbox" v-model = "item.done">
                                 </td>
-                                <td><i class="fa-solid fa-square-xmark"></i></td>
+                                <td v-on:click="remove_item(index)"><i class="fa-solid fa-square-xmark"></i></td>
                             </tr>
                         </tbody>
                       </table>
