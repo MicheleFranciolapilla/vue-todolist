@@ -11,6 +11,17 @@
     <!-- Link a Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <style>
+        .mouse_able
+        {
+            cursor: pointer;
+        }
+        .notable_check:checked
+        {
+            background-color: yellowgreen;
+        }
+    </style>
+
     <!-- Link ai fogli di stile dedicati -->
     <!-- <link rel="stylesheet" href="./assets/css/reset_and_utilities.css">
     <link rel="stylesheet" href="./assets/css/style.css"> -->
@@ -48,6 +59,7 @@
                           <tr class="text-info">
                             <th scope="col">#</th>
                             <th scope="col">Cose da fare</th>
+                            <th scope="col"><i class="fa-solid fa-star"></i></th>
                             <th scope="col"><i class="fa-regular fa-square-check"></i></th>
                             <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
                           </tr>
@@ -55,11 +67,14 @@
                         <tbody>
                             <tr v-for = "(item, index) in todos" :key = "index">
                                 <td scope = "row">{{index + 1}}</td>
-                                <td v-bind:style="(item.done) ? 'text-decoration: line-through' : ''" v-on:click="item.done = !item.done;">{{item.text}}</td>
+                                <td v-bind:style="set_text_style(index)" class="mouse_able" v-on:click="item.done = !item.done;">{{item.text}}</td>
                                 <td>
-                                    <input class="form-check-input" type="checkbox" v-model = "item.done">
+                                    <input class="notable_check form-check-input mouse_able" type="checkbox" v-model = "item.notable">
                                 </td>
-                                <td v-on:click="remove_item(index)"><i class="fa-solid fa-square-xmark"></i></td>
+                                <td>
+                                    <input class="form-check-input mouse_able" type="checkbox" v-model = "item.done">
+                                </td>
+                                <td><i class="fa-solid fa-square-xmark mouse_able" v-on:click="remove_item(index)"></i></td>
                             </tr>
                         </tbody>
                       </table>

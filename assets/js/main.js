@@ -36,22 +36,26 @@ createApp(
                                 ],
 
             new_item:           {
-                                    text:   "",
-                                    done:   false   
+                                    text:       "",
+                                    notable:    false,
+                                    done:       false   
                                 },
             min_item_length:    5,
             todos:              [
 	                                {
-		                                text:   'Fare i compiti',
-		                                done:   false
+		                                text:       'Fare i compiti',
+                                        notable:    false,
+		                                done:       false
 	                                },
 	                                {
-		                                text:   'Fare la spesa',
-		                                done:   true
+		                                text:       'Fare la spesa',
+                                        notable:    false,
+		                                done:       true
 	                                },
 	                                {
-		                                text:   'Fare il bucato',
-		                                done:   false
+		                                text:       'Fare il bucato',
+                                        notable:    true,
+		                                done:       false
 	                                }
                                 ]
         }
@@ -74,7 +78,7 @@ createApp(
 
         add_item()
         {
-            let {text, done} = this.new_item;
+            let {text, notable, done} = this.new_item;
             if (text === "")
             {
                 this.input_outcome = this.outcome_empty;
@@ -90,7 +94,7 @@ createApp(
                 this.todos.push(this.new_item);
                 text = "";
             }
-            this.new_item = {text, done};
+            this.new_item = {text, notable, done};
         },
 
         check_keypressed(event) 
@@ -99,6 +103,14 @@ createApp(
             {
                 this.add_item();
             }
+        },
+
+        set_text_style(index)
+        {
+            let str_value = "";
+            if (this.todos[index].notable) str_value += "color: yellowgreen; font-weight: 800; ";
+            if (this.todos[index].done) str_value += "text-decoration: line-through;";
+            return str_value;
         }
     }
 }).mount('#vue_app')
