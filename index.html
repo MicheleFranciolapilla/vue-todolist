@@ -11,19 +11,24 @@
     <!-- Link a Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- Stile CSS -->
     <style>
+        /* Stile del puntatore specifico degli elementi della tabella */
         .mouse_able
         {
             cursor: pointer;
         }
+        /* Colore di sfondo della checkbox "importanti" */
         .notable_check:checked
         {
             background-color: yellowgreen;
         }
+        /* Altezza pagina */
         #page
         {
             min-height: 100vh;
         }
+        /* Attributi dei riquadri informativi della table head */
         .info
         {
             position: absolute;
@@ -45,21 +50,22 @@
     <title>Vue - to do list</title>
 </head>
 <body>
-
+    <!-- Settore VUE -->
     <div id="vue_app">
         <div id="page" class="bg-success">
             <header>
                 <h1 class="text-center text-white-50">- To do list -</h1>
             </header>
             <main class="row p-0 m-0">
-
                 <section class="row p-0 m-0 my-3">
+                    <!-- Sezione input + pulsante -->
                     <div class="col-3 offset-2">
                         <input v-on:keyup="check_keypressed" type="text" class="form-control" v-model = "new_item.text" placeholder="Aggiungi un nuovo 'to do'" aria-label="new_to_do">
                     </div>
                     <div class="col-1">
                         <button v-on:click="add_item()" class="btn btn-primary btn-outline-light">Aggiungi</button>
                     </div>
+                    <!-- Sezione degli alert relativi ad input errato -->
                     <div v-if = "input_outcome != outcome_ok" class="row mt-2 position-relative">
                         <div class="col-7 alert alert-warning mx-auto" role="alert">
                             <h4 class="text-center">Errore in fase di input</h4>
@@ -70,11 +76,13 @@
                     </div>
                 </section>
                 <section class="col-8 offset-2">
+                    <!-- Tabella riassuntiva -->
                     <table v-if = "todos.length != 0" class="table table-dark table-striped">
                         <thead class="position-relative">
                           <tr class="text-info">
                             <th scope="col">#</th>
                             <th scope="col">Cose da fare</th>
+                            <!-- Gli headers con icone F.A. mostrano un riquadro informativo al passaggio del mouse -->
                             <th scope="col">
                                 <i class="fa-solid fa-star" v-on:mouseover="proximity = 1;" v-on:mouseleave="proximity = 0;"></i>
                                 <p v-if = "proximity == 1" class="info" style="right: 100px;">Marcatura di impegno importante</p>
@@ -90,20 +98,27 @@
                           </tr>
                         </thead>
                         <tbody>
+                            <!-- Generazione delle righe in tabella (oggetti dell'array) -->
                             <tr v-for = "(item, index) in todos" :key = "index">
+                                <!-- Indice di riga -->
                                 <td scope = "row">{{index + 1}}</td>
+                                <!-- Testo (to do) con richiamo a metodo che ne modifica lo stile in funzione degli altri due campi (booleani) -->
                                 <td v-bind:style="set_text_style(index)" class="mouse_able" v-on:click="item.done = !item.done;">{{item.text}}</td>
+                                <!-- Checkbox "impegno importante" -->
                                 <td>
                                     <input class="notable_check form-check-input mouse_able" type="checkbox" v-model = "item.notable">
                                 </td>
+                                <!-- Checkbox "impegno assolto" -->
                                 <td>
                                     <input class="form-check-input mouse_able" type="checkbox" v-model = "item.done">
                                 </td>
+                                <!-- Icona per cancellazione -->
                                 <td><i class="fa-solid fa-square-xmark mouse_able" v-on:click="remove_item(index)"></i></td>
                             </tr>
                         </tbody>
                       </table>
                       <div v-else>
+                        <!-- Messaggio di "tabella vuota" -->
                         <p class="col-8 p-2 border border-3 rounded-3 bg-warning">La tua lista è vuota. Aggiungi elementi mediante l'apposito form di input</p>
                       </div>
                 </section>

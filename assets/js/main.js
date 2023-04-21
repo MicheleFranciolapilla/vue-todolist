@@ -23,16 +23,24 @@ createApp(
     {
         return {
             // Costanti semantiche relative all'esito degli input
+            // Input senza problemi
             outcome_ok:         0,
+            // Input di stringa vuota
             outcome_empty:      1,
+            // Input di testo troppo corto
             outcome_short:      2,
+            // Input di soli spazi bianchi
             outcome_blanks:     3,
+            // Input di elemento ripetuto
             outcome_exists:     4,
 
+            // Variabile "di stato" dell'input avvenuto/in corso
             input_outcome:      null,
 
+            // Variabile "di prossimità" agli headers della tabella, per i quali sia presente un riquadro informativo
             proximity:          0,
 
+            // Array con messaggi da utilizzare nel caso di input errato: errors[0] + errors specifico
             errors:
                                 [   "L'ultimo dato digitato non può essere inserito poichè ",
                                     "inesistente (stringa vuota)!",
@@ -41,12 +49,16 @@ createApp(
                                     "già presente!"
                                 ],
 
+            // Oggetto di acquisizione input
             new_item:           {
                                     text:       "",
                                     notable:    false,
                                     done:       false   
                                 },
+            // Variabile indicante la lunghezza minima degli input validi
             min_item_length:    5,
+
+            // Array degli oggetti "to do"
             todos:              [
 	                                {
 		                                text:       'Fare i compiti',
@@ -68,20 +80,24 @@ createApp(
     },
     created()
     {
+        // Inizializzazione della variabile di stato degli input
         this.reset_errors();
     },
     methods: 
     {
+        // Inizializzazione della variabile di stato degli input 
         reset_errors()
         {
             this.input_outcome = this.outcome_ok;
         },
 
+        // Rimozione oggetto dall'array, in conseguenza di click su apposita icona
         remove_item(index)
         {
             this.todos.splice(index,1);
         },
 
+        // Metodo che verifica se il testo digitato sia composto da soli spazi
         just_blank_check(str_value)
         {
             let counter = 0;
@@ -90,34 +106,42 @@ createApp(
             return (counter == str_value.length);
         },
 
+        // Metodo che verifica se l'input digitato sia una ripetizione di dato già presente
         exists(str_value)
         {
             let check = this.todos.filter((element) => (element.text.toUpperCase() == str_value.toUpperCase()));
             return (check.length != 0);
         },
 
+        // Metodo di verifica di validità ed eventuale aggiunta del nuovo input
         add_item()
         {
+            // Destrutturazione oggetto
             let {text, notable, done} = this.new_item;
+            // Check su "stringa vuota"
             if (text === "")
             {
                 this.input_outcome = this.outcome_empty;
             }
+            // Check su "dato corto"
             else if (text.length < this.min_item_length)
             {
                 this.input_outcome = this.outcome_short;
                 text = "";
             }
+            // Check su "soli spazi bianchi"
             else if (this.just_blank_check(text))
             {
                 this.input_outcome = this.outcome_blanks;
                 text = "";
             }
+            // Check su "dato già presente"
             else if (this.exists(text))
             {
                 this.input_outcome = this.outcome_exists;
                 text = "";                
             }
+            // Dato sicuramente valido
             else
             {
                 this.input_outcome = this.outcome_ok;
@@ -127,6 +151,7 @@ createApp(
             this.new_item = {text, notable, done};
         },
 
+        // Metodo riconoscitore della pressione del tasto "enter"
         check_keypressed(event) 
         {
             if (event.key === "Enter")
@@ -135,6 +160,7 @@ createApp(
             }
         },
 
+        // Metodo utilizzato per formattare lo stile del testo "to do", in funzione degli altri due campi booleani
         set_text_style(index)
         {
             let str_value = "";
