@@ -70,7 +70,7 @@
                     </div>
                 </section>
                 <section class="col-8 offset-2">
-                    <table class="table table-dark table-striped">
+                    <table v-if = "todos.length != 0" class="table table-dark table-striped">
                         <thead class="position-relative">
                           <tr class="text-info">
                             <th scope="col">#</th>
@@ -103,6 +103,9 @@
                             </tr>
                         </tbody>
                       </table>
+                      <div v-else>
+                        <p class="col-8 p-2 border border-3 rounded-3 bg-warning">La tua lista è vuota. Aggiungi elementi mediante l'apposito form di input</p>
+                      </div>
                 </section>
             </main>
         </div>
