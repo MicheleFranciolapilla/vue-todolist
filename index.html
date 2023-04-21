@@ -55,7 +55,7 @@
                         <tbody>
                             <tr v-for = "(item, index) in todos" :key = "index">
                                 <td scope = "row">{{index + 1}}</td>
-                                <td v-bind:style="(item.done) ? 'text-decoration: line-through' : ''">{{item.text}}</td>
+                                <td v-bind:style="(item.done) ? 'text-decoration: line-through' : ''" v-on:click="item.done = !item.done;">{{item.text}}</td>
                                 <td>
                                     <input class="form-check-input" type="checkbox" v-model = "item.done">
                                 </td>
