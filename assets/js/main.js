@@ -22,30 +22,75 @@ createApp(
     data() 
     {
         return {
-            todos:
-            [
-	            {
-		            text: 'Fare i compiti',
-		            done: false
-	            },
-	            {
-		            text: 'Fare la spesa',
-		            done: true
-	            },
-	            {
-		            text: 'Fare il bucato',
-		            done: false
-	            }
-            ]
+            // Costanti semantiche relative all'esito degli input
+            outcome_ok:         0,
+            outcome_empty:      1,
+            outcome_short:      2,
+
+            input_outcome:      null,
+
+            errors:
+                                [   "L'ultimo dato digitato non può essere inserito, poichè ",
+                                    "inesistente (stringa vuota)!",
+                                    "troppo corto!"
+                                ],
+
+            new_item:           {
+                                    text:   "",
+                                    done:   false   
+                                },
+            min_item_length:    5,
+            todos:              [
+	                                {
+		                                text:   'Fare i compiti',
+		                                done:   false
+	                                },
+	                                {
+		                                text:   'Fare la spesa',
+		                                done:   true
+	                                },
+	                                {
+		                                text:   'Fare il bucato',
+		                                done:   false
+	                                }
+                                ]
         }
     },
     created()
-    {},
+    {
+        this.reset_errors();
+    },
     methods: 
     {
+        reset_errors()
+        {
+            this.input_outcome = this.outcome_ok;
+        },
+
         remove_item(index)
         {
             this.todos.splice(index,1);
+        },
+
+        add_item()
+        {
+            let {text, done} = this.new_item;
+            if (text === "")
+            {
+                this.input_outcome = this.outcome_empty;
+            }
+            else if (text.length < this.min_item_length)
+            {
+                this.input_outcome = this.outcome_short;
+                text = "";
+            }
+            else
+            {
+                this.input_outcome = this.outcome_ok;
+                this.todos.push(this.new_item);
+                text = "";
+            }
+            this.new_item = {text, done};
         }
     }
 }).mount('#vue_app')
