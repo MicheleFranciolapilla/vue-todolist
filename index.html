@@ -27,7 +27,7 @@
         .info
         {
             position: absolute;
-            top: 0;
+            top: 15px;
             right: 0;
             padding: 1rem;
             background-color: orangered;
@@ -77,7 +77,7 @@
                             <th scope="col">Cose da fare</th>
                             <th scope="col">
                                 <i class="fa-solid fa-star" v-on:mouseover="proximity = 1;" v-on:mouseleave="proximity = 0;"></i>
-                                <p v-if = "proximity == 1" class="info">Marcatura di impegno importante</p>
+                                <p v-if = "proximity == 1" class="info" style="right: 100px;">Marcatura di impegno importante</p>
                             </th>
                             <th scope="col">
                                 <i class="fa-regular fa-square-check" v-on:mouseover="proximity = 2;" v-on:mouseleave="proximity = 0;"></i>
