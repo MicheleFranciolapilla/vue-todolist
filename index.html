@@ -24,6 +24,18 @@
         {
             min-height: 100vh;
         }
+        .info
+        {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 1rem;
+            background-color: orangered;
+            border: 2px solid darkgrey;
+            border-radius: 10px;
+            color: darkgrey;
+            margin: 1rem;
+        }
     </style>
 
     <!-- Link ai fogli di stile dedicati -->
@@ -59,13 +71,22 @@
                 </section>
                 <section class="col-8 offset-2">
                     <table class="table table-dark table-striped">
-                        <thead>
+                        <thead class="position-relative">
                           <tr class="text-info">
                             <th scope="col">#</th>
                             <th scope="col">Cose da fare</th>
-                            <th scope="col"><i class="fa-solid fa-star"></i></th>
-                            <th scope="col"><i class="fa-regular fa-square-check"></i></th>
-                            <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
+                            <th scope="col">
+                                <i class="fa-solid fa-star" v-on:mouseover="proximity = 1;" v-on:mouseleave="proximity = 0;"></i>
+                                <p v-if = "proximity == 1" class="info">Marcatura di impegno importante</p>
+                            </th>
+                            <th scope="col">
+                                <i class="fa-regular fa-square-check" v-on:mouseover="proximity = 2;" v-on:mouseleave="proximity = 0;"></i>
+                                <p v-if = "proximity == 2" class="info">Marcatura di impegno assolto</p>
+                            </th>
+                            <th scope="col">
+                                <i class="fa-solid fa-trash-can" v-on:mouseover="proximity = 3;" v-on:mouseleave="proximity = 0;"></i>
+                                <p v-if = "proximity == 3" class="info">Rimozione dalla lista</p>
+                            </th>
                           </tr>
                         </thead>
                         <tbody>

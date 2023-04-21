@@ -31,6 +31,8 @@ createApp(
 
             input_outcome:      null,
 
+            proximity:          0,
+
             errors:
                                 [   "L'ultimo dato digitato non può essere inserito poichè ",
                                     "inesistente (stringa vuota)!",
