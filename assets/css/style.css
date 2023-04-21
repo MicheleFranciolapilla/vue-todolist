@@ -1,0 +1,37 @@
+
+#to_do_table
+{
+    max-height: 70vh;
+}
+
+#to_do_table #heading
+{
+    padding: 5px 0;
+    border: 3px solid black;
+    border-radius: 5px;
+    background-color: rgb(77, 70, 70);
+    color: darkseagreen;
+    margin-bottom: 5px;
+}
+
+#to_do_table li *
+{
+    padding-left: 15px;
+}
+
+#to_do_table .index_col
+{
+    flex-basis: 5%;
+}
+
+#to_do_table .to_do_col
+{
+    flex-basis: 75%;
+}
+
+#to_do_table .done_col,
+#to_do_table .remove_col
+{
+    flex-basis: 10%;
+}
+
